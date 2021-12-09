@@ -1,0 +1,108 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{FCE9D994-4367-40B0-811E-88825A0B86E1}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>PluginSystem</RootNamespace>
+    <AssemblyName>PluginSystem</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+    <Reference Include="YamlDotNet, Version=11.0.0.0, Culture=neutral, PublicKeyToken=ec19458f3c15af5e, processorArchitecture=MSIL">
+      <HintPath>..\packages\YamlDotNet.11.2.1\lib\net45\YamlDotNet.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="API\Connection.cs" />
+    <Compile Include="API\Item.cs" />
+    <Compile Include="API\Map.cs" />
+    <Compile Include="API\Player.cs" />
+    <Compile Include="API\Roles\RoleChaosConscript.cs" />
+    <Compile Include="API\Roles\RoleChaosMarauder.cs" />
+    <Compile Include="API\Roles\RoleChaosRepressor.cs" />
+    <Compile Include="API\Roles\RoleChaosRifleman.cs" />
+    <Compile Include="API\Roles\RoleClassD.cs" />
+    <Compile Include="API\Roles\RoleFacilityGuard.cs" />
+    <Compile Include="API\Roles\RoleNone.cs" />
+    <Compile Include="API\Roles\RoleNtfCaptain.cs" />
+    <Compile Include="API\Roles\RoleNtfPrivate.cs" />
+    <Compile Include="API\Roles\RoleNtfSergeant.cs" />
+    <Compile Include="API\Roles\RoleNtfSpecialist.cs" />
+    <Compile Include="API\Roles\RoleScientist.cs" />
+    <Compile Include="API\Roles\RoleScp0492.cs" />
+    <Compile Include="API\Roles\RoleScp079.cs" />
+    <Compile Include="API\Roles\RoleScp096.cs" />
+    <Compile Include="API\Roles\RoleScp049.cs" />
+    <Compile Include="API\Roles\RoleScp106.cs" />
+    <Compile Include="API\Roles\RoleScp173.cs" />
+    <Compile Include="API\Roles\RoleScp93953.cs" />
+    <Compile Include="API\Roles\RoleScp93989.cs" />
+    <Compile Include="API\Roles\RoleSpectator.cs" />
+    <Compile Include="API\Roles\RoleTutorial.cs" />
+    <Compile Include="API\Round.cs" />
+    <Compile Include="API\Server.cs" />
+    <Compile Include="API\Vector.cs" />
+    <Compile Include="Attributes\PluginDetails.cs" />
+    <Compile Include="Enums\AccessType.cs" />
+    <Compile Include="Enums\LogType.cs" />
+    <Compile Include="EventSystem\Event.cs" />
+    <Compile Include="EventSystem\EventHandlers\AdminHandlers.cs" />
+    <Compile Include="EventSystem\EventHandlers\EnviromentEventHandlers.cs" />
+    <Compile Include="EventSystem\EventHandlers\EventHandler.cs" />
+    <Compile Include="EventSystem\EventHandlers\PlayerEventHandlers.cs" />
+    <Compile Include="EventSystem\EventHandlers\ServerRoundEventHandlers.cs" />
+    <Compile Include="EventSystem\EventManager.cs" />
+    <Compile Include="EventSystem\Events\AdminEvents.cs" />
+    <Compile Include="EventSystem\Events\EnvironmentEvents.cs" />
+    <Compile Include="EventSystem\Events\PlayerEvents.cs" />
+    <Compile Include="EventSystem\Events\ServerRoundEvents.cs" />
+    <Compile Include="Extensions\StringExtension.cs" />
+    <Compile Include="Interfaces\IRole.cs" />
+    <Compile Include="Logging\BaseLogger.cs" />
+    <Compile Include="Interfaces\IConfig.cs" />
+    <Compile Include="Interfaces\ILogger.cs" />
+    <Compile Include="Interfaces\IPlugin.cs" />
+    <Compile Include="Logging\LogHandler.cs" />
+    <Compile Include="Permissions\IPermissionsHandler.cs" />
+    <Compile Include="Plugin.cs" />
+    <Compile Include="PluginManager.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RoleSystem\RoleManager.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
