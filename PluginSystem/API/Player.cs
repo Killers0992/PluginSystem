@@ -67,7 +67,12 @@ namespace PluginSystem.API
 
 		public abstract void SendConsoleMessage(string message, string color = "green");
 
-		public override bool Equals(object obj)
+        public override string ToString()
+        {
+			return $"{Name} ({UserId})";
+        }
+
+        public override bool Equals(object obj)
 		{
 			return Equals(obj as Player);
 		}

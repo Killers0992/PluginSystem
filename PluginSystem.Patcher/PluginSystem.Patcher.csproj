@@ -69,6 +69,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Patches\BanUserPatch.cs" />
+    <Compile Include="Patches\DealDamagePatch.cs" />
+    <Compile Include="Patches\LurePatch.cs" />
+    <Compile Include="Patches\PlayerInteractPatch.cs" />
     <Compile Include="Patches\PlayerLeavePatch.cs" />
     <Compile Include="Patches\WaitingForPlayersPatch.cs" />
     <Compile Include="Patches\HealthStatPatch.cs" />
@@ -77,6 +81,7 @@
     <Compile Include="Patches\AssignRolePatch.cs" />
     <Compile Include="Patches\ServerNamePatch.cs" />
     <Compile Include="Patches\PlayerJoinedPatch.cs" />
+    <Compile Include="Patches\WarheadEventsPatch.cs" />
     <Compile Include="PluginSystem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SLLogHandler.cs" />

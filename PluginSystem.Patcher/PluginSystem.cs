@@ -31,6 +31,10 @@ namespace PluginSystem
             PluginManager.Manager.EnablePlugins();
         }
 
+        public static ReferenceHub LastStartedDetonationBy;
+
+        public static bool LureCanceled = false;
+
         public static string ServerPluginsPath;
     }
 }

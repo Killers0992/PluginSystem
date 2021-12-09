@@ -6,6 +6,7 @@ using PluginSystem.API.Roles;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 
 namespace PluginSystem
 {
@@ -36,6 +37,24 @@ namespace PluginSystem
 
         public static SLPlayer GetOrAdd(ReferenceHub hub)
         {
+            if (hub == null)
+                return null;
+
+            if (Players.TryGetValue(hub, out SLPlayer player))
+                return player;
+
+            Players.Add(hub, new SLPlayer(hub));
+            return Players[hub];
+        }
+
+        public static SLPlayer GetOrAdd(GameObject gameObject)
+        {
+            if (gameObject == null)
+                return null;
+
+            if (!ReferenceHub.Hubs.TryGetValue(gameObject, out ReferenceHub hub))
+                return null;
+
             if (Players.TryGetValue(hub, out SLPlayer player))
                 return player;
 
@@ -53,6 +72,9 @@ namespace PluginSystem
 
         public static Player GetPlayerByUserId(string userId)
         {
+            if (userId == null)
+                return null;
+
             if (SLPlayer.PlayersUserIds.TryGetValue(userId, out SLPlayer plr))
                 return plr;
 

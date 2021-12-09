@@ -12,7 +12,7 @@ namespace PluginSystem.Patcher.Patches
 
 		private void OnDestroy()
 		{
-			var plr = SLPlayer.GetOrAdd(ReferenceHub.Hubs[base.gameObject]);
+			var plr = SLPlayer.GetOrAdd(base.gameObject);
 
 			PlayerLeaveEvent ev = new PlayerLeaveEvent(plr);
 			EventManager.Manager.HandleEvent<IEventHandlerPlayerLeave>(ev);
