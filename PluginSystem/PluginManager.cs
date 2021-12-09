@@ -82,6 +82,7 @@ namespace PluginSystem
 					Logger.Info($"[{x + 1}/{pluginsToEnable.Length}] Skipped enabling plugin with id \"{pluginsToEnable[x]}\". ( plugin is not registered )");
 					continue;
                 }
+
 				EventManager.Manager.AddSnapshotEventHandlers(plugin);
 
 				Logger.Info($"[{x + 1}/{pluginsToEnable.Length}] Enabling plugin \"{plugin.Details.Name}\" ({plugin.Details.Version})...");
@@ -120,7 +121,7 @@ namespace PluginSystem
 				if (LoadedAssemblies.ContainsKey(fileName))
                 {
 					Logger.Info($"[{x + 1}/{totalDependencies.Length}] Skipped loading dependency \"{fileName}\". ( already loaded )");
-				}
+                }
                 else
                 {
 					Logger.Info($"[{x + 1}/{totalDependencies.Length}] Loading dependency \"{fileName}\"...");
@@ -181,7 +182,12 @@ namespace PluginSystem
                         }
                         else
                         {
-							var value = Array.Find(pluginClass.GetProperties(BindingFlags.Static | BindingFlags.NonPublic | BindingFlags.Public), property => property.PropertyType == pluginClass)?.GetValue(null);
+							var value = Array.Find(
+								pluginClass.GetProperties(
+									BindingFlags.Static |
+									BindingFlags.NonPublic |
+									BindingFlags.Public), 
+								property => property.PropertyType == pluginClass)?.GetValue(null);
 
 							if (value != null)
 								plugin = value as IPlugin<IConfig>;
@@ -219,7 +225,6 @@ namespace PluginSystem
                             {
 								Logger.Warn($"[{x + 1}/{totalPlugins.Length}] Error while invoking Register in plugin \"{details.Name}\" ({details.Version}).\n{ex}");
 							}
-
 						}
 
 						LoadedAssemblies.Add(fileName, ass);

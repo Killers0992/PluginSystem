@@ -1,4 +1,5 @@
-﻿using PluginSystem.Attributes;
+﻿using PluginSystem.API;
+using PluginSystem.Attributes;
 using PluginSystem.EventHandlers;
 using PluginSystem.Events;
 using System;
@@ -13,6 +14,7 @@ namespace PluginSystem
         EventManager EventManager { get; }
         PluginManager PluginManager { get; }
         RoleManager RoleManager { get; }
+        Server Server { get; }
         void Register();
         void OnEnable();
         void OnDisable();

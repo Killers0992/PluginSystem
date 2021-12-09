@@ -1,14 +1,9 @@
 ﻿using MonoMod;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PluginSystem.Patcher.Patches
 {
     [MonoModPatch("global::ServerConsole")]
-    public class ServerConsolePatch : ServerConsole
+    public class ServerNamePatch : ServerConsole
     {
         public string RefreshServerName()
         {

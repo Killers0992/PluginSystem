@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PluginSystem.API
 {
@@ -22,7 +19,11 @@ namespace PluginSystem.API
 		public abstract List<Player> GetPlayers(IRole role);
 		public abstract List<Player> GetPlayers(TeamType team);
 		public abstract List<Player> GetPlayers(Predicate<Player> predicate);
-		public abstract Player GetPlayer(int playerId);
+
+		public abstract Player GetPlayerById(int playerId);
+		public abstract Player GetPlayerByUserId(string userId);
+		public abstract Player GetPlayerByUsername(string username);
+
 		public abstract List<Connection> GetConnections(string filter = "");
 		public abstract List<TeamType> GetRoles(string filter = "");
 		public abstract string GetAppFolder(bool addSeparator = true, bool serverConfig = false, string centralConfig = "");

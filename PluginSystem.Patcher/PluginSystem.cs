@@ -24,7 +24,7 @@ namespace PluginSystem
                 Directory.CreateDirectory(Path.Combine(ServerPluginsPath, "dependencies"));
 
             PluginManager.Manager.LogHandler = new SLLogHandler();
-            PluginManager.Manager.Server = new SLServer();
+            PluginManager.Manager.Server = new SLServer(new SLMap(), new SLRound());
 
             RoleManager.Manager.LoadDefaultRoles();
             PluginManager.Manager.LoadPlugins(ServerPluginsPath);

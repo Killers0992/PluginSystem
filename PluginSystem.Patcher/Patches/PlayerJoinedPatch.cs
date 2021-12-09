@@ -1,12 +1,11 @@
-﻿using Mirror;
-using MonoMod;
+﻿using MonoMod;
 using PluginSystem.EventHandlers;
 using PluginSystem.Events;
 
 namespace PluginSystem.Patcher.Patches
 {
     [MonoModPatch("global::ServerRoles")]
-    public class ServerRolesPatch : ServerRoles
+    public class PlayerJoinedPatch : ServerRoles
 	{
 		public extern void orig_RefreshPermissions(bool disp = false);
 

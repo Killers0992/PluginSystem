@@ -1,4 +1,5 @@
-﻿using PluginSystem.Attributes;
+﻿using PluginSystem.API;
+using PluginSystem.Attributes;
 using PluginSystem.EventHandlers;
 using PluginSystem.Events;
 using PluginSystem.Logging;
@@ -17,6 +18,7 @@ namespace PluginSystem
         public EventManager EventManager => EventManager.Manager;
         public PluginManager PluginManager => PluginManager.Manager;
         public RoleManager RoleManager => RoleManager.Manager;
+        public Server Server => PluginManager.Manager.Server;
 
         public virtual void Register() => Logger.Info($"{Details.Name} ({Details.Version}) has been registered!");
 

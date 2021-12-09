@@ -45,7 +45,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="API\Connection.cs" />
-    <Compile Include="API\Item.cs" />
+    <Compile Include="API\Enums\DamageType.cs" />
+    <Compile Include="API\Enums\ItemType.cs" />
+    <Compile Include="API\Enums\TeamType.cs" />
+    <Compile Include="API\Enums\UserIdType.cs" />
     <Compile Include="API\Map.cs" />
     <Compile Include="API\Player.cs" />
     <Compile Include="API\Roles\RoleChaosConscript.cs" />

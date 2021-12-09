@@ -9,7 +9,7 @@
 		KeycardZoneManager = 3,
 		KeycardGuard = 4,
 		KeycardNTFOfficer = 5,
-		KeycardContainmentEngineer = 6, 
+		KeycardContainmentEngineer = 6,
 		KeycardNTFLieutenant = 7,
 		KeycardNTFCommander = 8,
 		KeycardFacilityManager = 9,

@@ -5,21 +5,106 @@ using PluginSystem.API;
 using PluginSystem.API.Roles;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace PluginSystem
 {
     public class SLPlayer : Player
     {
         private ReferenceHub _hub;
+        public IRole CurrentRole = new RoleNone();
+
+        private UserIdType? _useridtype;
+
+        public static Dictionary<int, SLPlayer> PlayersIds = new Dictionary<int, SLPlayer>();
+        public static Dictionary<string, SLPlayer> PlayersUserIds = new Dictionary<string, SLPlayer>();
+        public static Dictionary<ReferenceHub, SLPlayer> Players = new Dictionary<ReferenceHub, SLPlayer>();
 
         public SLPlayer(ReferenceHub hub)
         {
             this._hub = hub;
+            PlayersUserIds.Add(UserId, this);
+            PlayersIds.Add(PlayerId, this);
         }
 
-        public IRole CurrentRole = new RoleNone();
+        public void OnDestroy()
+        {
+            PlayersUserIds.Remove(UserId);
+            PlayersIds.Remove(PlayerId);
+            Players.Remove(_hub);
+        }
 
-        public static Dictionary<ReferenceHub, SLPlayer> Players = new Dictionary<ReferenceHub, SLPlayer>();
+        public static SLPlayer GetOrAdd(ReferenceHub hub)
+        {
+            if (Players.TryGetValue(hub, out SLPlayer player))
+                return player;
+
+            Players.Add(hub, new SLPlayer(hub));
+            return Players[hub];
+        }
+
+        public static Player GetPlayerById(int playerId)
+        {
+            if (SLPlayer.PlayersIds.TryGetValue(playerId, out SLPlayer plr))
+                return plr;
+
+            return null;
+        }
+
+        public static Player GetPlayerByUserId(string userId)
+        {
+            if (SLPlayer.PlayersUserIds.TryGetValue(userId, out SLPlayer plr))
+                return plr;
+
+            return null;
+        }
+
+        public static Player GetPlayerByUsername(string userName)
+        {
+            return Players.Values.FirstOrDefault(p => p.Name.ToLower().Replace(" ", "") == userName.ToLower().Replace(" ", ""));
+        }
+
+        public static List<Player> GetPlayers()
+        {
+            return SLPlayer.Players.Values
+                .ToList<Player>();
+        }
+
+        public static List<Player> GetPlayers(string filter)
+        {
+            return SLPlayer.Players.Values
+                .ToList<Player>();
+        }
+
+        public static List<Player> GetPlayers(IRole role)
+        {
+            return SLPlayer.Players.Values
+                .Where(p => p.Role.RoleId == role.RoleId)
+                .ToList<Player>();
+        }
+
+        public static List<Player> GetPlayers(TeamType team)
+        {
+            return SLPlayer.Players.Values
+                .Where(p => p.Role.Team == team)
+                .ToList<Player>();
+        }
+
+        public static List<Player> GetPlayers(Predicate<Player> predicate)
+        {
+            List<Player> plrs = new List<Player>();
+            foreach (var plr in GetPlayers())
+            {
+                if (predicate(plr))
+                    plrs.Add(plr);
+            }
+            return plrs;
+        }
+
+        public static List<TeamType> GetRoles(string filter = "")
+        {
+            return null;
+        }
 
         public override string Name => _hub.nicknameSync.MyNick;
 
@@ -42,8 +127,6 @@ namespace PluginSystem
         public override uint NetworkId => _hub.networkIdentity.netId;
 
         public override string UserId => _hub.characterClassManager.UserId;
-
-        private UserIdType? _useridtype;
 
         public override UserIdType UserIdType
         {
@@ -224,15 +307,6 @@ namespace PluginSystem
             }
         } 
 
-        public static SLPlayer GetOrAdd(ReferenceHub hub)
-        {
-            if (Players.TryGetValue(hub, out SLPlayer player))
-                return player;
-
-            Players.Add(hub, new SLPlayer(hub));
-            return Players[hub];
-        }
-
         public override ushort GetAmmo(API.ItemType type)
         {
             if (_hub.inventory.UserInventory.ReserveAmmo.TryGetValue((ItemType)type, out ushort val))
@@ -309,7 +383,7 @@ namespace PluginSystem
 
         public override bool HasItem(API.ItemType type)
         {
-            throw new System.NotImplementedException();
+            return false;
         }
 
         public override void ClearInventory()

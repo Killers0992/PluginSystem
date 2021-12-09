@@ -5,7 +5,7 @@ using PluginSystem.Events;
 namespace PluginSystem.Patcher.Patches
 {
 	[MonoModPatch("global::SpawnpointManager")]
-	public class FillSpawnPointsPatch
+	public class WaitingForPlayersPatch
     {
 		public extern static void orig_FillSpawnPoints();
 

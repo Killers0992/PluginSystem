@@ -10,7 +10,7 @@ using System.Linq;
 namespace PluginSystem.Patcher.Patches
 {
     [MonoModPatch("global::InventorySystem.InventoryItemProvider")]
-    public class InventoryItemProviderPatch
+    public class ItemProviderPatch
     {
 		private static void RoleChanged(ReferenceHub ply, RoleType prevRole, RoleType newRole, bool lite, CharacterClassManager.SpawnReason spawnReason)
 		{

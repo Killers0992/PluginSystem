@@ -3,7 +3,7 @@
 namespace PluginSystem.Patcher.Patches.Initializer
 {
     [MonoModPatch("global::ServerStatic")]
-    public class ServerStaticPatch : ServerStatic
+    public class InitializerPatch : ServerStatic
     {
         public extern void orig_Awake();
 

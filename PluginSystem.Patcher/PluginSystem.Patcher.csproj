@@ -69,17 +69,20 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Patches\FillSpawnPointsPatch.cs" />
+    <Compile Include="Patches\PlayerLeavePatch.cs" />
+    <Compile Include="Patches\WaitingForPlayersPatch.cs" />
     <Compile Include="Patches\HealthStatPatch.cs" />
-    <Compile Include="Patches\Initializer\ServerStaticPatch.cs" />
-    <Compile Include="Patches\InventoryItemProviderPatch.cs" />
-    <Compile Include="Patches\PlayerStatsPatch.cs" />
-    <Compile Include="Patches\ServerConsolePatch.cs" />
-    <Compile Include="Patches\ServerRolesPatch.cs" />
+    <Compile Include="Patches\Initializer\InitializerPatch.cs" />
+    <Compile Include="Patches\ItemProviderPatch.cs" />
+    <Compile Include="Patches\AssignRolePatch.cs" />
+    <Compile Include="Patches\ServerNamePatch.cs" />
+    <Compile Include="Patches\PlayerJoinedPatch.cs" />
     <Compile Include="PluginSystem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SLLogHandler.cs" />
+    <Compile Include="SLMap.cs" />
     <Compile Include="SLPlayer.cs" />
+    <Compile Include="SLRound.cs" />
     <Compile Include="SLServer.cs" />
   </ItemGroup>
   <ItemGroup>

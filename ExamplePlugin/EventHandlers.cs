@@ -1,14 +1,9 @@
 ﻿using PluginSystem.EventHandlers;
 using PluginSystem.Events;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ExamplePlugin
 {
-    public class EventHandlers : IEventHandlerPlayerJoin, IEventHandlerWaitingForPlayers
+    public class EventHandlers : IEventHandlerPlayerJoin, IEventHandlerPlayerLeave, IEventHandlerWaitingForPlayers
     {
         private MainClass Plugin;
         public EventHandlers(MainClass plugin)
@@ -18,8 +13,12 @@ namespace ExamplePlugin
 
         public void OnPlayerJoin(PlayerJoinEvent ev)
         {
-            ev.Player.SendConsoleMessage("Join", "red");
             Plugin.Logger.Info($"Player joined {ev.Player.Name} ({ev.Player.UserId})");
+        }
+
+        public void OnPlayerLeave(PlayerLeaveEvent ev)
+        {
+            Plugin.Logger.Info($"Player left {ev.Player.Name} ({ev.Player.UserId})");
         }
 
         public void OnWaitingForPlayers(WaitingForPlayersEvent ev)

@@ -3,49 +3,6 @@ using System.Collections.Generic;
 
 namespace PluginSystem.API
 {
-    public enum UserIdType
-    {
-        Steam,
-        Discord,
-        Northwood
-    }
-
-	public enum DamageType
-    {
-		Unknown,
-		Falldown,
-		Warhead,
-		Decontamination,
-		Asphyxiation,
-		Poison,
-		Bleeding,
-		Firearm,
-		MicroHid,
-		Tesla,
-		Scp,
-		Explosion,
-		Scp018,
-		Scp207,
-		Recontainment,
-		Crushed,
-		FemurBreaker,
-		PocketDimension,
-		FriendlyFireDetector,
-		SeveredHands,
-	}
-
-	public enum TeamType
-    {
-		None = -1,
-		Scp = 0,
-		NineTailFox = 1,
-		ChaosInsurgency = 2,
-		Scientist = 3,
-		ClassD = 4,
-		Spectator = 5,
-		Tutorial = 6
-	}
-
     public abstract class Player : IEquatable<Player>
 	{
 		public abstract string Name { get; }

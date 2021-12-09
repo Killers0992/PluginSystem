@@ -1,14 +1,9 @@
 ﻿using MonoMod;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PluginSystem.Patcher.Patches
 {
     [MonoModPatch("global::PlayerStatsSystem.PlayerStats")]
-    public class PlayerStatsPatch
+    public class AssignRolePatch
     {
         public extern void orig_OnClassChanged(ReferenceHub userHub, RoleType prevClass, RoleType newClass);
 

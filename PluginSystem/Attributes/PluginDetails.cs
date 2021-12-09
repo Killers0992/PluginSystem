@@ -9,10 +9,9 @@ namespace PluginSystem.Attributes
         {
             get
             {
-                if (_id != null)
-                    return _id;
+                if (_id == null)
+                    _id = $"{Author}.{Name}".ToLower().Replace(" ", "");
 
-                _id = $"{Author}.{Name}".ToLower().Replace(" ", "");
                 return _id;
             }
         }

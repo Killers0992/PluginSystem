@@ -1,9 +1,6 @@
 ﻿using PluginSystem.EventHandlers;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PluginSystem.Events
 {
@@ -58,7 +55,6 @@ namespace PluginSystem.Events
 			{
 				if (typeof(IEventHandler).IsAssignableFrom(intfce))
 				{
-					plugin.Logger.Debug("Adding event handler for " + intfce.Name);
 					AddEventHandler(plugin, intfce, handler, priority);
 				}
 			}
@@ -66,15 +62,13 @@ namespace PluginSystem.Events
 
 		public void AddEventHandler(IPlugin<IConfig> plugin, Type eventType, IEventHandler handler, Priority priority = Priority.Normal)
 		{
-			plugin.Logger.Debug(string.Format("Adding event handler from: {0} type: {1} priority: {2} handler: {3}", plugin.Details.Name, eventType, priority, handler.GetType()));
 			EventHandlerWrapper wrapper = new EventHandlerWrapper(plugin, priority, handler);
 
 			if (PluginManager.Manager.GetEnabledPlugin(plugin.Details.Id) == null)
 			{
 				if (!snapshots.ContainsKey(plugin))
-				{
 					snapshots.Add(plugin, new Snapshot());
-				}
+
 				snapshots[plugin].Entries.Add(new Snapshot.SnapshotEntry(eventType, wrapper));
 			}
 
@@ -94,7 +88,6 @@ namespace PluginSystem.Events
 			{
 				List<EventHandlerWrapper> meta = event_meta[eventType];
 				meta.Add(wrapper);
-				// Doing this stuff on register instead of when the event is called for events that trigger lots (OnUpdate etc)
 				meta.Sort(priorityCompare);
 				meta.Reverse();
 			}
@@ -117,7 +110,6 @@ namespace PluginSystem.Events
 		public void RemoveEventHandlers(IPlugin<IConfig> plugin)
 		{
 			Dictionary<Type, List<EventHandlerWrapper>> new_event_meta = new Dictionary<Type, List<EventHandlerWrapper>>();
-			// loop through the meta dict finding any handlers from this plugin
 			foreach (var meta in event_meta)
 			{
 				List<EventHandlerWrapper> newList = new List<EventHandlerWrapper>();
@@ -125,23 +117,17 @@ namespace PluginSystem.Events
 				foreach (EventHandlerWrapper wrapper in meta.Value)
 				{
 					if (wrapper.Plugin != plugin)
-					{
 						newList.Add(wrapper);
-					}
 				}
 
 				if (newList.Count > 0)
-				{
 					new_event_meta.Add(meta.Key, newList);
-				}
 			}
 
 			event_meta = new_event_meta;
 
 			if (snapshots.ContainsKey(plugin))
-			{
 				snapshots[plugin].Active = true;
-			}
 		}
 
 
@@ -153,9 +139,7 @@ namespace PluginSystem.Events
 				foreach (EventHandlerWrapper wrapper in event_meta[typeof(T)])
 				{
 					if (wrapper.Handler is T tHandler)
-					{
 						events.Add(tHandler);
-					}
 				}
 			}
 
