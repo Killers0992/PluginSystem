@@ -54,7 +54,7 @@ namespace PluginSystem
 
         public void LoadDefaultRoles()
         {
-            foreach(var defaultRole in DefaultRoles)
+            foreach (var defaultRole in DefaultRoles)
             {
                 RegisterRole(defaultRole);
             }

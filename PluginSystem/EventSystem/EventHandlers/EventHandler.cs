@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PluginSystem.EventHandlers
 {
-	public interface IEventHandler
-	{
-	}
+    public interface IEventHandler
+    {
+    }
 }

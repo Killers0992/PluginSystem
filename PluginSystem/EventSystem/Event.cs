@@ -2,8 +2,8 @@
 
 namespace PluginSystem.Events
 {
-	public abstract class Event
-	{
-		public abstract void ExecuteHandler(IEventHandler handler);
-	}
+    public abstract class Event
+    {
+        public abstract void ExecuteHandler(IEventHandler handler);
+    }
 }
