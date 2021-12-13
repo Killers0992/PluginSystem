@@ -4,16 +4,16 @@ using PluginSystem.Events;
 
 namespace PluginSystem.Patcher.Patches
 {
-	[MonoModPatch("global::SpawnpointManager")]
-	public class WaitingForPlayersPatch
+    [MonoModPatch("global::SpawnpointManager")]
+    public class WaitingForPlayersPatch
     {
-		public extern static void orig_FillSpawnPoints();
+        public extern static void orig_FillSpawnPoints();
 
-		public static void FillSpawnPoints()
-		{
-			WaitingForPlayersEvent ev = new WaitingForPlayersEvent(PluginManager.Manager.Server);
-			EventManager.Manager.HandleEvent<IEventHandlerWaitingForPlayers>(ev);
-			orig_FillSpawnPoints();
-		}
-	}
+        public static void FillSpawnPoints()
+        {
+            WaitingForPlayersEvent ev = new WaitingForPlayersEvent(PluginManager.Manager.Server);
+            EventManager.Manager.HandleEvent<IEventHandlerWaitingForPlayers>(ev);
+            orig_FillSpawnPoints();
+        }
+    }
 }

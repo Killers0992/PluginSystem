@@ -12,8 +12,8 @@ namespace PluginSystem.Patcher.Patches
     [MonoModPatch("global::InventorySystem.InventoryItemProvider")]
     public class ItemProviderPatch
     {
-		private static void RoleChanged(ReferenceHub ply, RoleType prevRole, RoleType newRole, bool lite, CharacterClassManager.SpawnReason spawnReason)
-		{
+        private static void RoleChanged(ReferenceHub ply, RoleType prevRole, RoleType newRole, bool lite, CharacterClassManager.SpawnReason spawnReason)
+        {
             if (!NetworkServer.active)
                 return;
 
@@ -58,5 +58,5 @@ namespace PluginSystem.Patcher.Patches
                 InventoryItemProvider.OnItemProvided?.Invoke(ply, arg);
             }
         }
-	}
+    }
 }

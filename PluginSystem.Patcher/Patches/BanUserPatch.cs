@@ -28,7 +28,7 @@ namespace PluginSystem.Patcher.Patches
             if (!ev.AllowBan)
                 return false;
 
-            return orig_BanUser(user, duration, reason, issuer, isGlobalBan); 
+            return orig_BanUser(user, duration, reason, issuer, isGlobalBan);
         }
     }
 }
