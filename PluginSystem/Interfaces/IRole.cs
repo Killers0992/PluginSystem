@@ -7,9 +7,9 @@ namespace PluginSystem
     {
         int RoleId { get; }
 
-        string Name { get; set; }
+        string Name { get; }
 
-        TeamType Team { get; set; }
+        TeamType Team { get; }
 
         bool IsScp { get; }
 
@@ -24,5 +24,9 @@ namespace PluginSystem
         Dictionary<ItemType, ushort> StartAmmo { get; set; }
 
         List<ItemType> StartInventory { get; set; }
+
+        void OnPlayerStartUsingRole(Player player);
+
+        void OnPlayerStopUsingRole(Player player);
     }
 }

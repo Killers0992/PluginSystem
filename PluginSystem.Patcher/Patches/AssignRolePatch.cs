@@ -9,10 +9,15 @@ namespace PluginSystem.Patcher.Patches
 
         private void OnClassChanged(ReferenceHub userHub, RoleType prevClass, RoleType newClass)
         {
+            var plr = SLPlayer.GetOrAdd(userHub);
+
+            if (plr.Role != null)
+                plr.Role.OnPlayerStopUsingRole(plr);
+
             if (RoleManager.Manager.RegisteredRoles.TryGetValue((int)newClass, out IRole role))
             {
-                var plr = SLPlayer.GetOrAdd(userHub);
                 plr.Role = role;
+                plr.Role.OnPlayerStartUsingRole(plr);
             }
 
             orig_OnClassChanged(userHub, prevClass, newClass);

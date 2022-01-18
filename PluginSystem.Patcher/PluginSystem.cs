@@ -29,6 +29,7 @@ namespace PluginSystem
             RoleManager.Manager.LoadDefaultRoles();
             PluginManager.Manager.LoadPlugins(ServerPluginsPath);
             PluginManager.Manager.EnablePlugins();
+
         }
 
         public static ReferenceHub LastStartedDetonationBy;

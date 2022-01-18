@@ -11,6 +11,8 @@ namespace ExamplePlugin
         ApiVersion = "1.0.0")]
     public class MainClass : Plugin<PluginConfig>
     {
+        public static MainClass Instance { get; set; }
+
         public override void OnDisable()
         {
             Logger.Info($"Disabled.");
@@ -18,12 +20,12 @@ namespace ExamplePlugin
 
         public override void OnEnable()
         {
+            Instance = this;
             Logger.Info($"Enabled.");
         }
 
         public override void Register()
         {
-            RoleManager.RegisterRole(new CustomClassD());
             AddEventHandlers(new EventHandlers(this));
             Logger.Info($"Registered.");
         }

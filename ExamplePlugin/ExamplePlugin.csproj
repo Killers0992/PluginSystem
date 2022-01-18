@@ -41,7 +41,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CustomClassD.cs" />
     <Compile Include="EventHandlers.cs" />
     <Compile Include="MainClass.cs" />
     <Compile Include="PluginConfig.cs" />

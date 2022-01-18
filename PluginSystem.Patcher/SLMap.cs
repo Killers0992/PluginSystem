@@ -120,7 +120,7 @@ namespace PluginSystem
         {
             foreach (var light in FlickerableLightController.Instances)
             {
-                if (RoomIdentifier.RoomsByCoordinatess.TryGetValue(RoomIdUtils.PositionToCoords(light.transform.position), out RoomIdentifier room))
+                if (RoomIdentifier.RoomsByCoordinates.TryGetValue(RoomIdUtils.PositionToCoords(light.transform.position), out RoomIdentifier room))
                 {
                     if (onlyHeavy && room.Zone == FacilityZone.HeavyContainment)
                         light.ServerFlickerLights(forceDuration);
