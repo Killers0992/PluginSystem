@@ -1,4 +1,5 @@
-﻿using ICSharpCode.SharpZipLib.Tar;
+﻿using DepotDownloader;
+using ICSharpCode.SharpZipLib.Tar;
 using Ionic.Zip;
 using System.Diagnostics;
 using System.IO.Compression;
@@ -43,9 +44,6 @@ namespace PluginSystem.Builder
             if (!Directory.Exists(directory))
                 Directory.CreateDirectory(directory);
 
-            if (!Directory.Exists(Path.Combine(directory, "SteamCMD")))
-                Directory.CreateDirectory(Path.Combine(directory, "SteamCMD"));
-
             if (!Directory.Exists(Path.Combine(directory, "SCPSL")))
                 Directory.CreateDirectory(Path.Combine(directory, "SCPSL"));
 
@@ -66,48 +64,31 @@ namespace PluginSystem.Builder
             if (!Directory.Exists(Path.Combine(directory, "temp")))
                 Directory.CreateDirectory(Path.Combine(directory, "temp"));
 
-            if (!File.Exists(Path.Combine(directory, "SteamCMD", "steamcmd.exe")))
-            {
-                using (var client = new HttpClient())
-                {
-                    using (var request = new HttpRequestMessage(HttpMethod.Get, "https://steamcdn-a.akamaihd.net/client/installer/steamcmd.zip"))
-                    {
-                        SendLog("Builder", $"Downloading steamcmd...");
-                        using (Stream contentStream = await (await client.SendAsync(request)).Content.ReadAsStreamAsync(), stream = new FileStream(Path.Combine(directory, "temp", "steamcmd.zip"), FileMode.Create, FileAccess.Write, FileShare.None))
-                        {
-                            await contentStream.CopyToAsync(stream);
-                        }
-                        SendLog("Builder", $"Downloaded steamcmd!");
-                        SendLog("Builder", $"Extracting steamcmd.zip...");
 
-                        var ins = Ionic.Zip.ZipFile.Read(Path.Combine(directory, "temp", "steamcmd.zip"));
-                        ins.ExtractAll(Path.Combine(directory, "SteamCMD"), ExtractExistingFileAction.OverwriteSilently);
-                        ins.Dispose();
-                        SendLog("Builder", $"Extracted steamcmd.zip!");
-                        File.Delete(Path.Combine(directory, "temp", "steamcmd.zip"));
-                    }
-                }
-            }
-            SendLog("Builder", $"Start SCPSL files validation...");
+            ContentDownloader.Config.UsingFileList = true;
+            ContentDownloader.Config.FilesToDownload = new HashSet<string>();
+            
+            AccountSettingsStore.LoadFromFile(Path.Combine(directory, "account.config"));
 
-            using (var process = new Process())
+            ContentDownloader.Config.InstallDirectory = Path.Combine(directory, "SCPSL");
+            ContentDownloader.Config.VerifyAll = true;
+            ContentDownloader.Config.MaxServers = 20;
+            ContentDownloader.Config.MaxDownloads = 8;
+            ContentDownloader.Config.FilesToDownloadRegex = new List<System.Text.RegularExpressions.Regex>()
+            { 
+                new System.Text.RegularExpressions.Regex(".*.(dll)($|\\?.*)")
+            };
+
+            if (ContentDownloader.InitializeSteam3(null, null))
             {
-                process.StartInfo.WorkingDirectory = Path.Combine(directory, "SteamCMD");
-                process.StartInfo.FileName = Path.Combine(directory, "SteamCMD", "steamcmd.exe");
-                process.StartInfo.Arguments = $"+login anonymous +force_install_dir \"{Path.Combine(directory, "SCPSL")}\" +app_update 996560 validate +quit";
-                process.StartInfo.UseShellExecute = false;
-                process.StartInfo.RedirectStandardOutput = true;
-                process.EnableRaisingEvents = true;
-                process.OutputDataReceived += (obj, ev) =>
-                {
-                    SendLog("SteamCMD", $"{ev.Data}", ConsoleColor.Red);
-                };
-                process.Start();
-                process.BeginOutputReadLine();
-                await process.WaitForExitAsync();
+                SendLog("Steam", $"Validating SCPSL..."); 
+                var mans = new List<(uint depotId, ulong manifestId)>();
+
+                await ContentDownloader.DownloadAppAsync(996560, mans, "public", "windows", "64", "english", false, false);
+                SendLog("Steam", $"Validated SCPSL!");
+                ContentDownloader.ShutdownSteam3();
             }
 
-            SendLog("Builder", $"Ended SCPSL files validation!");
 
             if (!File.Exists(Path.Combine(directory, "APublicizer", "APublicizer.exe")))
             {
